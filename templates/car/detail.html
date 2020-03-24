@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Car {{ car.id }}
+{% endblock %}
+
+{% block content %}
+
+    <h1> Car {{ car.id }} </h1>
+
+    <table class="table table-borderless">
+      <tbody>
+        <tr>
+            <th scope="row">Car ID</th>
+            <td>{{ car.id }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Model</th>
+            <td>{{ car.model }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Provider</th>
+            <td>{{ car.provider }}</td>
+        </tr>
+    </table>
+
+{% endblock %}
