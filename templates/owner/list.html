@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Owners
+{% endblock %}
+
+{% block content %}
+
+<h1>Owner list</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for owner in owners %}
+
+        <tr>
+            <th scope="row">{{ owner.id }}</th>
+            <td>{{ owner.last_name }}</td>
+            <td>{{ owner.first_name }}</td>
+        </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
