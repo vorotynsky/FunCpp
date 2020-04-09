@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Create new owner
+{% endblock %}
+
+{% block content %}
+
+    <h1>Create owner</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table class="table table-borderless">
+            {{ form.as_table }}
+        </table>
+        <button type="submit" class="btn btn-primary">Create</button>
+
+    </form>
+
+{% endblock %}
