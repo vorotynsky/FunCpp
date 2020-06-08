@@ -26,6 +26,18 @@
             <th scope="row">Birthday</th>
             <td>{{ owner.birthday }}</td>
         </tr>
+        <tr>
+            <th scope="row">Passport</th>
+            {% if owner.user != None %}
+                {% if owner.user.passport != None %}
+                    <td>{{ owner }}</td>
+                {% else %}
+                    <td> Passport isn't entered. </td>
+                {% endif %}
+            {% else %}
+                <td> User hasn't created. </td>
+            {% endif %}
+        </tr>
     </table>
 
 {% endblock %}

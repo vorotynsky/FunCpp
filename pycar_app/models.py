@@ -1,4 +1,12 @@
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+
+class User(AbstractUser):
+    passport         = models.IntegerField(unique=True, null=True)
+    address          = models.CharField(max_length=128, null=True)
+    nationality      = models.CharField(max_length=48,  null=True)
 
 
 class Car(models.Model):
@@ -12,6 +20,7 @@ class Owner(models.Model):
     last_name       = models.CharField(max_length=48)
     birthday        = models.DateField()
     cars            = models.ManyToManyField(Car, through='Ownership')
+    user            = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
 
 
 class License(models.Model):
