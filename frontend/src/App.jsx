@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 
+import NavBar from './components/navbar'
+
 class App extends Component {
     render() {
-        return <h1>Moocher Alert</h1>
+        return (
+            <NavBar />
+        )
     }
 }
 
