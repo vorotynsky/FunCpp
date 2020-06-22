@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from 'react'
-
+import {useHttp} from "../hooks/http.hook";
 
 const MoocherPage = (props) => {
         const [page, setPage] = useState({name: "Не найден", bio: ''})
-
-        let url = '/api/page/' + props.match.params.name
+        const {request} = useHttp()
 
         useEffect(() => {
-            fetch(url, { method: 'GET', headers: [] })
-                .then(data => data.json())
+            request('/api/page/' + props.match.params.name)
                 .then(page => setPage(page))
-                .catch(err => console.log('fetch error'))
-        }, [])
+                .catch(() => console.log('fetch error'))
+        }, [request, props])
 
         return (
             <div className="shadow p-3 mb-5 bg-white rounded">
