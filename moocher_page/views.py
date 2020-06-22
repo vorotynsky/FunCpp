@@ -4,9 +4,9 @@ from .serializers import *
 
 
 class MoocherPageView(APIView):
-    def get(self, request, pk=None):
-        if pk is not None:
-            page = MoocherPage.objects.get(pk=pk)
+    def get(self, request, name):
+        if name is not None:
+            page = MoocherPage.objects.get(name=name)
             result = MoocherPageSerializer(page, many=False)
             return Response(result.data)
         return Response(status=400)
