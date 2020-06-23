@@ -2,11 +2,7 @@ import React from 'react'
 import {Switch, Route, Redirect, BrowserRouter} from 'react-router-dom';
 
 import MoocherPage from "./components/page";
-
-const Home = () => (
-    <div className = "p-3 mb-5 bg-white">
-        <h1>Home page</h1>
-    </div>)
+import {Home} from "./components/home";
 
 export const AppRouter = () => {
     return (

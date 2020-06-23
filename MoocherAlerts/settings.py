@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-
+import datetime
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'djoser',
     'rest_framework',
 
     'moocher_page',
@@ -124,3 +125,35 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework_json_api.pagination.PageNumberPagination',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}
+
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=2),
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7)
+}
+
+
+DJOSER = {
+    'SEND_ACTIVATION_EMAIL': False,
+    'SEND_CONFIRMATION_EMAIL': False,
+    'ACTIVATION_URL': 'auth/activate/{uid}/{token}/',
+    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': False,
+    'PASSWORD_RESET_CONFIRM_URL': 'auth/reset/confirm/{uid}/{token}/',
+    'TOKEN_MODEL': None,
+}
