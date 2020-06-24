@@ -19,7 +19,7 @@ export const useToken = () => {
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem(STORAGE))
         if (token) {
-            request('/auth/jwt/refresh', 'POST', {'refresh': token.refresh})
+            request('/auth/jwt/refresh/', 'POST', {'refresh': token.refresh})
                 .then(data => login(data))
                 .catch(() => logout())
         }
@@ -38,9 +38,11 @@ export const useAuth = (token) => {
         return await http(url, method, body, headers)
     }, [http, token])
 
-    request('/auth/users/me/')
-        .then(data => setMe(data))
-        .catch(e => console.log(e))
+    useEffect(() => {
+        request('/auth/users/me/')
+            .then(data => setMe(data))
+            .catch(e => console.log(e))
+    }, [request])
 
     return { request, me }
 }
