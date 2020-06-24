@@ -15,7 +15,7 @@ export const Balance = () => {
 
     return (
         <div>
-            <a>
+            <a href="/balance">
                 баланс: { balance.balance }
             </a>
         </div>
