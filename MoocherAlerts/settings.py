@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'moocher_page',
+    'money',
 ]
 
 MIDDLEWARE = [
