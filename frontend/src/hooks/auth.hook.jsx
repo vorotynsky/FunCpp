@@ -20,7 +20,7 @@ export const useToken = () => {
         const token = JSON.parse(localStorage.getItem(STORAGE))
         if (token) {
             request('/auth/jwt/refresh/', 'POST', {'refresh': token.refresh})
-                .then(data => login(data))
+                .then(data => login({access: data.access, refresh: token.refresh}))
                 .catch(() => logout())
         }
 
@@ -31,12 +31,12 @@ export const useToken = () => {
 
 export const useAuth = (token) => {
     const [me, setMe] = useState({username: null, email:null, id:null})
-    const http = useHttp().request
+    const {load, request} = useHttp()
 
-    const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
+    const auth_request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
         headers['Authorization'] = 'Bearer ' + token.access
-        return await http(url, method, body, headers)
-    }, [http, token])
+        return await request(url, method, body, headers)
+    }, [request, token])
 
     useEffect(() => {
         request('/auth/users/me/')
@@ -44,5 +44,5 @@ export const useAuth = (token) => {
             .catch(e => console.log(e))
     }, [request])
 
-    return { request, me }
+    return { request: auth_request, load, me }
 }

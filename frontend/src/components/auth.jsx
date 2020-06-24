@@ -9,7 +9,7 @@ export const Login = () => {
 
     const loginHandler = async () => {
         try {
-            const token = await request('/auth/jwt/create', 'POST', {...data})
+            const token = await request('/auth/jwt/create/', 'POST', {...data})
             auth.login(token)
         } catch(e) {
             console.log(e)
@@ -18,7 +18,7 @@ export const Login = () => {
 
     const registerHandler = async () => {
         try {
-            await request('/auth/users', 'POST', {...data})
+            await request('/auth/users/', 'POST', {...data})
         } catch (e) {
            console.log(e)
         }
