@@ -2,10 +2,11 @@ import React, {createContext, useContext, useEffect, useState} from 'react'
 import {useHttp} from "../hooks/http.hook";
 import {useAuth} from "../hooks/auth.hook";
 import {AuthContext} from "../context/auth";
+import {Donate} from "./donate";
 
 const MoocherPage = (props) => {
     const context = useContext(AuthContext)
-    const {request, me} = useAuth(context.token)
+    const {request, load, me} = useAuth(context.token)
     const http = useHttp().request
 
     const [page, setPage] = useState({name: "Не найден", bio: '', id: null})
@@ -15,7 +16,7 @@ const MoocherPage = (props) => {
         http(url)
             .then(page => setPage(page))
             .catch(() => console.log('fetch error'))
-    }, [request, url])
+    }, [http, request, url, load])
 
     console.log(page)
     console.log(me)
@@ -32,7 +33,7 @@ const MoocherPage = (props) => {
             } catch (e) {
                 console.log(e)
             }
-        }        
+        }
 
         return (
             <div>
@@ -54,6 +55,7 @@ const MoocherPage = (props) => {
                 <h2 className="lead">{page.name}</h2>
                 <br />
                 <p className="text-break">{page.bio}</p>
+                {load && <Donate moocher={page.name} />}
             </div>
         )
     }

@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from moocher_page.models import MoocherPage
 
 
 class Balance(models.Model):
@@ -17,3 +18,10 @@ class Transaction(models.Model):
     money = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     balance = models.ForeignKey(Balance, blank=False, null=False, on_delete=models.DO_NOTHING)
     time = models.DateTimeField(auto_now=True)
+
+
+class Donation(models.Model):
+    moocher = models.ForeignKey(MoocherPage, blank=True, null=True, on_delete=models.DO_NOTHING)
+    name = models.CharField(max_length=32, blank=False, null=False)
+    message = models.TextField()
+    transaction = models.ForeignKey(Transaction, on_delete=models.DO_NOTHING)

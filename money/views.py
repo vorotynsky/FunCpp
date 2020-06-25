@@ -52,3 +52,46 @@ class TransactionView(APIView):
             balance.save()
             return Response(serializer.data)
         return Response(status=400)
+
+
+class DonationView(APIView):
+    def get(self, request, pk=None):
+        if pk is not None:
+            try:
+                donation = Donation.objects.get(pk=pk)
+                result = DonationSerializer(donation, many=False)
+                return Response(result.data)
+            except ObjectDoesNotExist:
+                return Response(status=404)
+        return Response(status=501)
+
+
+class DonateView(APIView):
+    def post(self, request):
+        try:
+            name = request.data['name']
+            message = request.data['message']
+            money = request.data['money']
+            money = Decimal(money)
+            moocher_name = request.data['moocher']
+        except:
+            return Response(status=400)
+
+        try:
+            balance = None
+            if request.user is not None:
+                balance = Balance.objects.get(user=request.user)
+                balance.balance -= money
+            moocher = MoocherPage.objects.get(name=moocher_name)
+            moocher_balance = Balance.objects.get(user=moocher.user)
+            moocher_balance.balance += money
+
+            transaction = Transaction.objects.create(type='D', money=money, balance=balance)
+            Donation.objects.create(moocher=moocher, name=name, message=message, transaction=transaction)
+            if balance is not None:
+                balance.save()
+            moocher_balance.save()
+        except:
+            return Response(status=500)
+
+        return Response(status=200)

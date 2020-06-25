@@ -19,3 +19,4 @@ class ReadonlyAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Balance, ReadonlyAdmin)
 admin.site.register(Transaction, ReadonlyAdmin)
+admin.site.register(Donation)
