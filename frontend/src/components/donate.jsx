@@ -11,7 +11,7 @@ export const Donation = (props) => {
     useEffect(() => {
         request('/api/money/donation/' + props.match.params.id)
             .then(data => setDonation(data))
-            .catch(() => { })
+            .catch(() => { alert('Ошибка') })
     }, [props, request])
 
     console.log(donation)
@@ -43,6 +43,7 @@ export const Donate = (props) => {
             await request('/api/money/donate/', 'POST', donation)
         } catch (e) {
             console.log(e)
+            alert('Ошибка')
         }
     }
 

@@ -1,4 +1,4 @@
-import React, {Component, useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useAuth} from "../hooks/auth.hook";
 import {AuthContext} from "../context/auth";
 
@@ -11,7 +11,7 @@ export const Balance = () => {
         request('/api/money/balance')
             .then(balance => setState(balance))
             .catch(() => setState({balance: 0}))
-    }, [])
+    }, [request])
 
     return (
         <div>

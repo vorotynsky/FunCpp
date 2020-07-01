@@ -18,6 +18,7 @@ const Money = (props) => {
             await request('/api/money/transaction/', 'POST', op)
         } catch (e) {
             console.log(e)
+            alert('Ошибка')
         }
     }
 
