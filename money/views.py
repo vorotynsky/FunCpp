@@ -67,6 +67,12 @@ class DonationView(APIView):
 
 
 class DonateView(APIView):
+    def get(self, request):
+        page = MoocherPage.objects.filter(user=request.user)
+        donations = Donation.objects.filter(moocher__in=page)
+        result = DonationSerializer(donations, many=True)
+        return Response(result.data)
+
     def post(self, request):
         try:
             name = request.data['name']
@@ -94,4 +100,4 @@ class DonateView(APIView):
         except:
             return Response(status=500)
 
-        return Response(status=200)
+        return Response('{}', status=200)

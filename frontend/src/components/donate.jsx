@@ -29,7 +29,8 @@ export const Donation = (props) => {
 }
 
 export const Donate = (props) => {
-    const [donation, setDonation] = useState({moocher: props.moocher, name:"", money:0, message:""})
+    const init = {moocher: props.moocher, name:"", money:0, message:""}
+    const [donation, setDonation] = useState(init)
     const auth = useContext(AuthContext)
     const {request} = useAuth(auth.token)
 
@@ -41,6 +42,8 @@ export const Donate = (props) => {
         try {
             donation.moocher = props.moocher
             await request('/api/money/donate/', 'POST', donation)
+            setDonation(init)
+            alert('Отправлено!')
         } catch (e) {
             console.log(e)
             alert('Ошибка')

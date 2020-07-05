@@ -35,14 +35,15 @@ export const useAuth = (token) => {
 
     const auth_request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
         headers['Authorization'] = 'Bearer ' + token.access
+        console.log(headers)
         return await request(url, method, body, headers)
     }, [request, token])
 
     useEffect(() => {
-        request('/auth/users/me/')
+        auth_request('/auth/users/me/')
             .then(data => setMe(data))
             .catch(e => console.log(e))
-    }, [request])
+    }, [request, token])
 
     return { request: auth_request, load, me }
 }

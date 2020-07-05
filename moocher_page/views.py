@@ -27,3 +27,11 @@ class MoocherPageView(APIView):
             return Response(500)
         except:
             return Response(400)
+
+    def delete(self, request, name):
+        try:
+            page = MoocherPage.objects.get(name=name, user=request.user)
+            page.delete()
+            return Response('{}')
+        except:
+            return Response(400)
